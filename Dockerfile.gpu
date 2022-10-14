@@ -29,10 +29,14 @@ COPY . /app
 
 RUN --mount=type=cache,target=/root/.cache/pypoetry/cache \
     --mount=type=cache,target=/root/.cache/pypoetry/artifacts \
-    poetry install
+    poetry lock
 
 RUN --mount=type=cache,target=/root/.cache/pypoetry/cache \
     --mount=type=cache,target=/root/.cache/pypoetry/artifacts \
-    $POETRY_VENV/bin/pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116 --force-reinstall
+    poetry install
+
+# RUN --mount=type=cache,target=/root/.cache/pypoetry/cache \
+#     --mount=type=cache,target=/root/.cache/pypoetry/artifacts \
+#     $POETRY_VENV/bin/pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116 --force-reinstall
 
 CMD [ "poetry", "run", "whisper_asr"]

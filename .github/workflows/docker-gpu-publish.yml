@@ -23,4 +23,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: edude03/asr:latest
+          tags: ghcr.io/edude03/asr:latest

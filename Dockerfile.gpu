@@ -26,6 +26,9 @@ ENV PATH="${PATH}:${POETRY_VENV}/bin"
 WORKDIR /app
 
 COPY . /app
-RUN poetry install
+
+RUN --mount=type=cache,target=/root/.cache/pypoetry/cache \
+    --mount=type=cache,target=/root/.cache/pypoetry/artifacts \
+    poetry install
 
 CMD [ "poetry", "run", "whisper_asr"]

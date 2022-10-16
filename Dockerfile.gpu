@@ -35,8 +35,7 @@ RUN --mount=type=cache,target=/root/.cache/pypoetry/cache \
     --mount=type=cache,target=/root/.cache/pypoetry/artifacts \
     poetry install
 
-# RUN --mount=type=cache,target=/root/.cache/pypoetry/cache \
-#     --mount=type=cache,target=/root/.cache/pypoetry/artifacts \
-#     $POETRY_VENV/bin/pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116 --force-reinstall
+# Preload the base model
+RUN poetry run python -c 'import whisper; whisper.load_model("base")'
 
 CMD [ "poetry", "run", "whisper_asr"]
